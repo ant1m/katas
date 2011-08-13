@@ -2,7 +2,7 @@
 
 (define number-regexp "-[0-9]+|[0-9]+")
 
-; add : string -> number
+; add : string -> number|string
 (define (add string)
   (let* ((numbers (filter (lambda (val) (> 1000 val)) (string->numbers string)))
          (negatives (filter (lambda (val) (> 0 val)) numbers)))
@@ -10,7 +10,7 @@
         (string-append "Negatives are not allowed. Negatives were " (list->string negatives))
         (sum numbers))))
 
-; display-list : (numbers) -> ()
+; list->string : (numbers) -> string
 (define (list->string a-list)
   (fold string-append "" (intersperse (map number->string a-list) ", ")))
 
@@ -28,7 +28,6 @@
             (test 6 (add "1,2,3"))
             (test 5 (add "1\n1,3"))
             (test 6 (add "//;\n1;2;3"))
-            (test-error (validate (-11 2 3)))
             (test '(1 -2 3) (string->numbers "//;\n1;-2;3"))
             (test "Negatives are not allowed. Negatives were -3, -1" (add "-1,-3,2"))
             (test 2 (add "1111,2"))

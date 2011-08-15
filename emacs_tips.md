@@ -33,7 +33,7 @@ In order to create a simple "command" in emacs lisp, you simply have to add the 
 
 We need something to bind our new command to a key in the geiser-mode keymap: 
 
-      (define-key geiser-mode-map "\C-s" 'save-and-compile))
+      (define-key geiser-mode-map "\C-s" 'save-and-compile)
 
 We the wrap the command and the mapping in an add on to the geiser-mode hook. The add on is a function called my-scheme-mode-hook : 
 

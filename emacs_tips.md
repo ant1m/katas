@@ -29,13 +29,13 @@ First, we write the command that saves the buffer and compile and load the schem
         (save-buffer)
         (geiser-compile-current-buffer))
 
-In order to create a simple "command" in emacs lisp, you simply have to add the interactive function all at the beginning of the function. This one calls the save-buffer function and the geiser-compile-current-buffer function bundled with geiser.
+In order to create a simple "command" in emacs lisp, you simply have to add the interactive function call at the beginning of the function. This one calls the save-buffer function and the geiser-compile-current-buffer function bundled with geiser.
 
 We need something to bind our new command to a key in the geiser-mode keymap: 
 
       (define-key geiser-mode-map "\C-s" 'save-and-compile)
 
-We the wrap the command and the mapping in an add on to the geiser-mode hook. The add on is a function called my-scheme-mode-hook : 
+We have the function and the keybinding. Let's wrap them in an add on to the geiser-mode hook. The add on is a function called my-scheme-mode-hook : 
 
     		(defun my-scheme-mode-hook ()
     		  (define-key geiser-mode-map "\C-s" 'save-and-compile)

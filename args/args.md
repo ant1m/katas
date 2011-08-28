@@ -1,7 +1,7 @@
 Args
 ===
 
-This is a kata that you can find [here](http://codingdojo.org/cgi-bin/wiki.pl?KataArgs). 
+This is a kata that you can find [here](http://codingdojo.org/cgi-bin/wiki.pl?KataArgs). Bob Martin solution in java is [here](https://github.com/unclebob/javaargs/tree/master/src/com/objectmentor/utilities/args).
 
 ## Lessons learned
 * Hashmaps in racket are nice but they are not a list of pairs, so no car or cdr.

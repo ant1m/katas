@@ -3,8 +3,8 @@ module Main
 import List
 import Test.HUnit
 
-result = 
-  foldl (++) "" $ intersperse ", " [fizzbuzz x | x <- [1..100]]
+result range = 
+  foldl (++) "" $ intersperse ", " [fizzbuzz x | x <- [1..range]]
                                                
   
 fizzbuzz :: Int -> String
@@ -22,5 +22,6 @@ testz = test [
   "test1" ~: "FizzBuzz 1 égale 1." ~:  "1" ~=? (fizzbuzz 1),
   "test2" ~: "FizzBuzz 3 égale Fizz." ~:  "Fizz" ~=? (fizzbuzz 3),
   "test3" ~: "FizzBuzz 5 égale Buzz." ~:  "Buzz" ~=? (fizzbuzz 5),
-  "test4" ~: "FizzBuzz 15 égale FizzBuzz." ~:  "FizzBuzz" ~=? (fizzbuzz 15)]
+  "test4" ~: "FizzBuzz 15 égale FizzBuzz." ~:  "FizzBuzz" ~=? (fizzbuzz 15),
+  "test5" ~: "Liste de fizzbuzz 1..10" ~: "1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz" ~=? (result 10)]
 

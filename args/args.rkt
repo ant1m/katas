@@ -29,7 +29,6 @@
         ((and (flag? (first argslist)) (not (flag? (second argslist))))
          (hash-set (string->args-rec (cddr argslist)) (first argslist) (second argslist)))
         (else (hash-set (string->args-rec (cdr argslist)) (first argslist) '()))))
-
 (define (string->args arg-string)
   (string->args-rec (regexp-split #px" " arg-string)))
 
@@ -53,7 +52,7 @@
   (define argsmap (string->args arg-string))
   (define result (hash))
   (let loop ((next-flags (hash-keys spec)))
-    (let ((value (hash-ref argsmap (car next-flags) '()))
+parser    (let ((value (hash-ref argsmap (car next-flags) '()))
           (parser (hash-ref spec (car next-flags))))
       (set! result (hash-set result (car next-flags) (parser value)))
       (if (null? (cdr next-flags)) result

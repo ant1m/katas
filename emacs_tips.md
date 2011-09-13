@@ -51,10 +51,10 @@ And we add this add-on to the geiser-mode-hook :
 And we're ready to go. 
 
 In a similar intention here is a chunk of code that
- *    binds the f12 key to the compilation command,
- *    run the "runhaskell <filename>" as compilation command, with
+ -    binds the f12 key to the compilation command,
+ -    run the "runhaskell <filename>" as compilation command, with
 <filename> as the name of the file of the current buffer,
- *    leaves the compilation window open when the compilation ended
+ -    leaves the compilation window open when the compilation ended
 abnormally or when a test failed, and closes it after 1 second if
 everyhting is ok
 

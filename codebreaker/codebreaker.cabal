@@ -1,0 +1,57 @@
+name: codebreaker
+version: 0.0.1
+cabal-version: >=1.9.2
+build-type: Simple
+license: GPL
+license-file: ""
+copyright:
+maintainer:
+build-depends: base
+stability:
+homepage:
+package-url:
+bug-reports:
+synopsis: CodeBreaker kata
+description: .
+category:
+author:
+tested-with: GHC -any
+data-files:
+data-dir: ""
+extra-source-files:
+extra-tmp-files:
+ 
+executable: codebreaker
+main-is: CodeBreaker.hs
+buildable: True
+build-tools:
+cpp-options:
+cc-options:
+ld-options:
+pkgconfig-depends:
+frameworks:
+c-sources:
+default-language:
+other-languages:
+default-extensions:
+other-extensions:
+extensions:
+extra-libraries:
+extra-lib-dirs:
+includes:
+install-includes:
+include-dirs:
+hs-source-dirs: src
+other-modules: CodeBreakerTests
+ghc-prof-options:
+ghc-shared-options:
+ghc-options:
+hugs-options:
+nhc98-options:
+jhc-options:
+
+test-suite test-codebreaker
+           type: detailed-1.0      
+           main-is: CodeBreakerTests.hs
+           test-module: Test.CodeBreakerTest
+           build-depends: base, cabal

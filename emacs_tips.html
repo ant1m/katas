@@ -1,0 +1,31 @@
+<div id="emacs-tips"
+><h1
+  >Emacs tips</h1
+  ><p
+  >I'll put there the emacs tips I came to use when I do stuff in Emacs in general and more specifically editing Scheme.</p
+  ><div id="use-paredit"
+  ><h2
+    >Use Paredit</h2
+    ><p
+    >Parentheses in Scheme are cool. They delimit expressions without ambiguity, allow homoiconicity and stuff. But when you spent a whole day dealing with parentheses, all those advantages are shadowed by petty drawbacks. Paredit precisely here for that : do interesting things without getting lost in parentheses.</p
+    ><p
+    >My favorite way of installing stuff in emacs is with ELPA system. Once done, you only have to add : (require 'paredit) in your config file to begin to walk the steep learning curve of Paredit. It's much less steep if you have the <a href="http://www.emacswiki.org/emacs/PareditCheatsheet"
+      >cheat sheet</a
+      > near you.</p
+    ></div
+  ><div id="use-geiser"
+  ><h2
+    >Use geiser</h2
+    ><p
+    >I was used to interacting with the Scheme REPL using <a href="http://www.neilvandyke.org/quack/"
+      >Quack</a
+      > for a while. The problem is that with Racket, you have to write a small <a href="http://benjisimon.blogspot.com/2011/02/little-elisp-to-make-emacs-and-racket.html"
+      >hack</a
+      > in order to compile and load the current buffer. There is no problem with any other Scheme implementation, but I came to use Racket a lot and it was quite annoying. So I switched to <a href="http://www.nongnu.org/geiser/index.html"
+      >Geiser</a
+      >. It has less features than Quack, but I don't miss most of the missing ones. It's a bit more painful to install, but not that much, and you don't do it every day. It comes with a convenient <a href="http://www.nongnu.org/geiser/geiser_5.html"
+      >cheat sheet</a
+      >.</p
+    ></div
+  ></div
+>

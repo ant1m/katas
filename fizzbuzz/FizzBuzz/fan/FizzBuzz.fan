@@ -13,6 +13,6 @@ class FizzBuzz
   }
   
   static Void main() {
-    echo fizzBuzzList()
+    echo (fizzBuzzResult())
   }
 }

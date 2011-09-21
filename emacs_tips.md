@@ -49,3 +49,31 @@ And we add this add-on to the geiser-mode-hook :
       (add-hook 'geiser-mode-hook 'my-scheme-mode-hook)
 
 And we're ready to go. 
+
+In a similar intention here is a chunk of code that : binds the f12
+key to the compilation command, run the "runhaskell <filename>" as compilation command, with
+<filename> as the name of the file of the current buffer and leaves the compilation window open when the compilation ended
+abnormally or when a test failed, and closes it after 1 second if
+everyhting is ok.
+
+     (setq compilation-read-command nil)
+     
+     (require 'haskell-mode)
+     (define-key haskell-mode-map [f12] 'compile)
+     
+     (defun haskell-compilation-finish ()
+       (setq compilation-finish-functions
+             (lambda (buf str)
+               (unless (or (string-match "exited abnormally" str)
+                           (string-match "Failures: 0" (buffer-string)))
+                 (run-at-time "1 sec" nil 'delete-windows-on
+                              (get-buffer-create "*compilation*"))
+                 (message "No compilation errors or test failures")))))
+     
+     (defun haskell-compilation ()
+       (set (make-local-variable 'compile-command)
+            (let ((file-name buffer-file-name))
+              (format "runhaskell %s" file-name))))
+     
+     (add-hook 'haskell-mode-hook 'haskell-compilation-finish)
+     (add-hook 'haskell-mode-hook 'haskell-compilation)

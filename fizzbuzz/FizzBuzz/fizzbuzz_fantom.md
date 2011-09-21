@@ -7,7 +7,7 @@ I wrote the kata using the [F4](http://www.xored.com/f4). It's nice, built on Ec
 
   1. the test results are displayed in a dedicated view but f4 automatically switches to the console view,
 
-  2. running the tests on a bugged code base runs the last succeeding tests, i guess because the interpreted doesn't yield,
+  2. running the tests on a bugged code base runs the last succeeding tests, i guess because the interpreted doesn't exit properly,
 
   3. Sometimes the description of a syntax error is quite terse (on the interpreter side, I guess).
 

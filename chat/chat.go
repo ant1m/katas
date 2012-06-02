@@ -1,90 +1,83 @@
 package main
 
 import (
-	//e "errors"
-	"log"
+	"fmt"
 	"time"
 )
 
-func main() {
-	room := newChatroom("room")
-	user1 := NewUser("user1")
-	room.Register(user1)
-	user2 := NewUser("user2")
-	room.Register(user2)
-	go room.Start()
-	go user1.Start()
-	go user2.Start()
-	user2.Send("hello from 2")
-	user1.Send("hello from 1")
-	time.Sleep(2 * 1e9)
-}
-
-type Chatroom struct {
-	Name     string
-	received chan string
-	users    map[string](chan string)
-}
-
-func newChatroom(name string) *Chatroom {
-	room := new(Chatroom)
-	room.Name = name
-	room.users = make(map[string](chan string))
-	room.received = make(chan string)
-	return room
+type Room struct {
+	messages chan *Message
+	joiners  chan *User
+	users    []*User
 }
 
 type User struct {
-	Name     string
-	received chan string
-	chatroom *Chatroom
+	inbox chan *Message
+	login string
 }
 
-func NewUser(name string) *User {
-	user := new(User)
-	user.Name = name
-	user.received = make(chan string)
-	return user
+type Message struct {
+	sender *User
+	body   string
 }
 
-func (this *User) Send(text string) {
-        log.Println(this.Name + " -> " + this.chatroom.Name + " : " + text)
-	this.chatroom.received <- makeMessage(this, text)
+func NewRoom() *Room {
+	r := new(Room)
+	r.messages = make(chan *Message)
+	r.joiners = make(chan *User)
+	r.users = make([]*User, 0)
+	return r
 }
 
-func (this User) Start() {
-	select {
-	case msg := <-this.received:
-		log.Println(this.Name + " <- " + msg)
-	}
+func NewUser(login string) *User {
+	return &User{make(chan *Message), login}
 }
 
-func (this *Chatroom) Register(user *User) (bool, error) {
-	this.users[user.Name] = user.received
-	user.chatroom = this
-	return true, nil
+func (r *Room) Register(u *User) {
+	r.joiners <- u
 }
 
-func (this *Chatroom) Receive() string {
-	return <-this.received
+func (u *User) Say(c *Room, text string) {
+	c.messages <- &Message{u, text}
 }
 
-func (this *Chatroom) Relay(text string) {
-	log.Println(this.users)
-	for name, ch := range this.users {
-		log.Println(this.Name + " -> " + name + " : " + text)
-		ch <- text
-	}
-
+func (m *Message) Print() string {
+	return fmt.Sprintf("%s says %s", m.sender.login, m.body)
 }
 
-func (this Chatroom) Start() {
-	log.Println("Waiting...")
+func (r *Room) Serve() {
 	for {
 		select {
-		case msg := <-this.received:
-			//log.Println("room received : " + msg)
-			this.Relay(msg)
+		case joiner := <-r.joiners:
+			r.users = append(r.users, joiner)
+			fmt.Println("hello ", joiner.login)
+		case message := <-r.messages:
+			fmt.Println("received ", message.body, "from", message.sender.login)
+			for _, user := range r.users {
+				user.inbox <-message
+			}
 		}
 	}
+}
+
+func (u *User) Wait() {
+	for {
+		message := <-u.inbox
+		fmt.Println(message.Print())
+	}
+}
+
+func main() {
+	room := NewRoom()
+	go room.Serve()
+	user1 := NewUser("u1")
+	user2 := NewUser("u2")
+	room.Register(user1)
+	room.Register(user2)
+	go user1.Say(room, "fuuuu1")
+	go user1.Say(room, "fuuuu1 again")
+	go user2.Say(room, "FUUUU2")
+	go user1.Wait()
+	go user2.Wait()
+	time.Sleep(1e9)
 }
